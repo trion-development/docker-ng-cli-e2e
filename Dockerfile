@@ -4,18 +4,19 @@ MAINTAINER trion development GmbH "info@trion.de"
 
 USER root
 ###
-# Installation as in https://github.com/docker-library/openjdk/tree/master/8-jre due to missing mixins in docker
+# Installation as in https://github.com/docker-library/openjdk/blob/master/8-jdk/Dockerfile due to missing mixins in docker
 ###
-
-# Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
-	&& rm -rf /var/lib/apt/lists/* \
-  && echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
+
+# Default to UTF-8 file.encoding
+ENV LANG C.UTF-8
 
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
 # based on whether the JDK or only the JRE is installed
@@ -46,6 +47,5 @@ RUN set -x \
 
 # see CA_CERTIFICATES_JAVA_VERSION notes above
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
-
 
 USER $USER_ID
