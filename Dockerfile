@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		unzip \
 		xz-utils \
 		libgconf-2-4 \
+        && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
@@ -43,6 +44,7 @@ RUN set -x \
 	&& apt-get install -y \
 		openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
 		ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
+	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
