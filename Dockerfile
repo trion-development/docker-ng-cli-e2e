@@ -32,12 +32,12 @@ RUN { \
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-ENV JAVA_VERSION 8u141
-ENV JAVA_DEBIAN_VERSION 8u141-b15-1~deb9u1
+ENV JAVA_VERSION 8u131
+ENV JAVA_DEBIAN_VERSION 8u131-b11-1~bpo8+1
 
 # see https://bugs.debian.org/775775
 # and https://github.com/docker-library/java/issues/19#issuecomment-70546872
-ENV CA_CERTIFICATES_JAVA_VERSION 20170531+nmu1
+ENV CA_CERTIFICATES_JAVA_VERSION 20161107~bpo8+1
 
 RUN set -x \
 	&& apt-get update \
