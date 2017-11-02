@@ -1,4 +1,4 @@
-FROM trion/ng-cli-karma:1.4.9
+FROM trion/ng-cli-karma:1.5.0
 
 MAINTAINER trion development GmbH "info@trion.de"
 
