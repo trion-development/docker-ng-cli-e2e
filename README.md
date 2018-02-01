@@ -1,5 +1,5 @@
 # docker-ng-cli-e2e
-Run Angular end2end tests inside docker container using Google Chrome / chromium.
+Run Angular end-to-end tests inside docker container using Google Chrome / chromium.
 Works great on CI servers.
 
 Example usage
