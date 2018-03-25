@@ -3,6 +3,7 @@ FROM trion/ng-cli-karma:1.7.3
 MAINTAINER trion development GmbH "info@trion.de"
 
 USER root
+
 ###
 # Installation as in https://github.com/docker-library/openjdk/blob/master/8-jdk/Dockerfile due to missing mixins in docker
 ###
