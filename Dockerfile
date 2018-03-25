@@ -11,11 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
-		libgconf-2-4 \
-        && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
-
-RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
@@ -30,7 +26,9 @@ RUN { \
 	} > /usr/local/bin/docker-java-home \
 	&& chmod +x /usr/local/bin/docker-java-home
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+# do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
+RUN ln -svT "/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)" /docker-java-home
+ENV JAVA_HOME /docker-java-home
 
 ENV JAVA_VERSION 8u162
 ENV JAVA_DEBIAN_VERSION 8u162-b12-1~deb9u1
@@ -39,16 +37,31 @@ ENV JAVA_DEBIAN_VERSION 8u162-b12-1~deb9u1
 # and https://github.com/docker-library/java/issues/19#issuecomment-70546872
 ENV CA_CERTIFICATES_JAVA_VERSION 20170531+nmu1
 
-RUN set -x \
-	&& apt-get update \
-	&& apt-get install -y \
+RUN set -ex; \
+	\
+# deal with slim variants not having man page directories (which causes "update-alternatives" to fail)
+	if [ ! -d /usr/share/man/man1 ]; then \
+		mkdir -p /usr/share/man/man1; \
+	fi; \
+	\
+	apt-get update; \
+	apt-get install -y \
 		openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
 		ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
+	; \
+	rm -rf /var/lib/apt/lists/*; \
+	\
+# verify that "docker-java-home" returns what we expect
+	[ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; \
+	\
+# update-alternatives so that future installs of other OpenJDK versions don't change /usr/bin/java
+	update-alternatives --get-selections | awk -v home="$(readlink -f "$JAVA_HOME")" 'index($3, home) == 1 { $2 = "manual"; print | "update-alternatives --set-selections" }'; \
+# ... and verify that it actually worked for one of the alternatives we care about
+	update-alternatives --query java | grep -q 'Status: manual'
 
 # see CA_CERTIFICATES_JAVA_VERSION notes above
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
+
+#end include
 USER $USER_ID
