@@ -8,6 +8,8 @@ USER root
 # Installation as in https://github.com/docker-library/openjdk/blob/master/8-jdk/Dockerfile due to missing mixins in docker
 ###
 
+#begin include
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
