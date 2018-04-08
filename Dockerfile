@@ -3,28 +3,17 @@ FROM trion/ng-cli-karma:alpine
 MAINTAINER trion development GmbH "info@trion.de"
 
 USER root
+COPY intercept-execve.c /usr/local/src/intercept-execve.c
 
-ENV CHROMEDRIVER_FILEPATH '/chromedriver.zip'
-ENV CHROMEDRIVER_PATH '/usr/bin/chromedriver'
-COPY chromedriver-alpine-hack.sh /chromedriver-alpine-hack.sh
+RUN set -xe \
+ && apk --no-cache add \
+    build-base \
+    chromium-chromedriver \
+    openjdk8-jre-base \
+ && gcc -shared -fPIC /usr/local/src/intercept-execve.c -o /usr/local/lib/intercept-execve.so \
+ && apk del \
+    build-base
 
-RUN apk --no-cache add \
-		chromium-chromedriver \
-		zip unzip \
-		openjdk8-jre-base && \
-		zip -j -D /chromedriver.zip /usr/bin/chromedriver
-
-#zip chromedriver as chromedriver_linux64.zip
-#move binary to different location
-
-# RUN apk --no-cache add ca-certificates openssl && \
-#     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
-#     apk --no-cache -X https://apkproxy.herokuapp.com/sgerrand/alpine-pkg-glibc add \
-# 		 glibc \
-# 		 glibc-bin \
-# 		 openjdk8-jre-base && \
-# 		 /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib
+ENV LD_PRELOAD /usr/local/lib/intercept-execve.so
 
 USER $USER_ID
-
-ENTRYPOINT ["/chromedriver-alpine-hack.sh"]
