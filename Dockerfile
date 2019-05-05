@@ -53,6 +53,6 @@ RUN set -ex; \
 # ... and verify that it actually worked for one of the alternatives we care about
 	update-alternatives --query java | grep -q 'Status: manual'
 
-
 #end include
+
 USER $USER_ID
