@@ -1,5 +1,6 @@
 FROM trion/ng-cli-karma:8.0.2
 
+
 MAINTAINER trion development GmbH "info@trion.de"
 
 USER root
@@ -41,7 +42,7 @@ RUN set -ex; \
 	\
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-		openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
+		openjdk-8-jdk \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
