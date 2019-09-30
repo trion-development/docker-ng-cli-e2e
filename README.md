@@ -15,7 +15,7 @@ For example:
 
 ```
 docker ... trion/ng-cli-e2e:6.0.8 \
-    ./node_modules/webdriver-manager/bin/webdriver-manager update --versions.chrome 2.41 && \
-    ng e2e
+    ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update --versions.chrome 2.41 && \
+    ng e2e --webdriver-update=false
 ```
 
