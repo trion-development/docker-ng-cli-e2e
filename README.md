@@ -1,5 +1,5 @@
-# docker-ng-cli-e2e
-Run Angular end-to-end tests inside docker container using Google Chrome / chromium.
+# Docker Angular CLI e2e
+Run Angular end-to-end tests with Protractor / Webdriver inside docker container using Google Chrome / chromium.
 Works great on CI servers.
 
 Example usage
@@ -18,4 +18,3 @@ docker ... trion/ng-cli-e2e:6.0.8 \
     ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update --versions.chrome 2.41 && \
     ng e2e --webdriver-update=false
 ```
-
