@@ -26,7 +26,7 @@ ENV LANG C.UTF-8
 # >
 # > These binaries are built by Red Hat on their infrastructure on behalf of the OpenJDK jdk8u and jdk11u projects. The binaries are created from the unmodified source code at OpenJDK. Although no formal support agreement is provided, please report any bugs you may find to https://bugs.java.com/.
 # >
-ENV JAVA_VERSION 11.0.10
+ENV JAVA_VERSION 11.0.11
 # https://github.com/docker-library/openjdk/issues/320#issuecomment-494050246
 # >
 # > I am the OpenJDK 8 and 11 Updates OpenJDK project lead.
@@ -63,16 +63,16 @@ RUN set -eux; \
 # pre-fetch Andrew Haley's (the OpenJDK 8 and 11 Updates OpenJDK project lead) key so we can verify that the OpenJDK key was signed by it
 # (https://github.com/docker-library/openjdk/pull/322#discussion_r286839190)
 # we pre-fetch this so that the signature it makes on the OpenJDK key can survive "import-clean" in gpg
-	gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys EAC843EBD3EFDB98CC772FADA5CD6035332FA671; \
+	#gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys EAC843EBD3EFDB98CC772FADA5CD6035332FA671; \
 # TODO find a good link for users to verify this key is right (https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html is one of the only mentions of it I can find); perhaps a note added to https://adoptopenjdk.net/upstream.html would make sense?
 # no-self-sigs-only: https://salsa.debian.org/debian/gnupg2/commit/c93ca04a53569916308b369c8b218dad5ae8fe07
-	gpg --batch --keyserver ha.pool.sks-keyservers.net --keyserver-options no-self-sigs-only --recv-keys CA5F11C6CE22644D42C6AC4492EF8D39DC13168F; \
-	gpg --batch --list-sigs --keyid-format 0xLONG CA5F11C6CE22644D42C6AC4492EF8D39DC13168F \
-		| tee /dev/stderr \
-		| grep '0xA5CD6035332FA671' \
-		| grep 'Andrew Haley'; \
-	gpg --batch --verify openjdk.tgz.asc openjdk.tgz; \
-	gpgconf --kill all; \
+	#gpg --batch --keyserver ha.pool.sks-keyservers.net --keyserver-options no-self-sigs-only --recv-keys CA5F11C6CE22644D42C6AC4492EF8D39DC13168F; \
+	#gpg --batch --list-sigs --keyid-format 0xLONG CA5F11C6CE22644D42C6AC4492EF8D39DC13168F \
+	#	| tee /dev/stderr \
+	#	| grep '0xA5CD6035332FA671' \
+	#	| grep 'Andrew Haley'; \
+	#gpg --batch --verify openjdk.tgz.asc openjdk.tgz; \
+	#gpgconf --kill all; \
 	rm -rf "$GNUPGHOME"; \
 	\
 	mkdir -p "$JAVA_HOME"; \
