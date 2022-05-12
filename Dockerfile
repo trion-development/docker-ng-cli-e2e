@@ -1,6 +1,8 @@
-FROM trion/ng-cli-karma:13.3.5
+FROM trion/ng-cli-karma:latest
 
 MAINTAINER trion development GmbH "info@trion.de"
+
+LABEL ng-cli-karma=latest
 
 USER root
 ###
