@@ -4,6 +4,7 @@ MAINTAINER trion development GmbH "info@trion.de"
 
 LABEL ng-cli-karma=latest
 
+
 USER root
 ###
 # Installation as in  https://github.com/docker-library/openjdk/blob/master/11/jdk/slim-buster/Dockerfile
