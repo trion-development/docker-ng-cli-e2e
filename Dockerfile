@@ -2,7 +2,7 @@ FROM trion/ng-cli-karma:latest
 
 MAINTAINER trion development GmbH "info@trion.de"
 
-LABEL ng-cli-karma='14.0.0'
+LABEL ng-cli-karma='14.0.1'
 
 
 USER root
