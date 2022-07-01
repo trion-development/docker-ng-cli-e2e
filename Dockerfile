@@ -2,6 +2,7 @@ FROM trion/ng-cli-karma:latest
 
 LABEL ng-cli-karma='14.0.2'
 
+
 USER root
 ###
 # Installation as in  https://github.com/docker-library/openjdk/blob/master/11/jdk/slim-buster/Dockerfile
