@@ -1,6 +1,6 @@
 FROM trion/ng-cli-karma:latest
 
-LABEL ng-cli-karma='14.2.5'
+LABEL ng-cli-karma='14.2.6'
 
 
 USER root
