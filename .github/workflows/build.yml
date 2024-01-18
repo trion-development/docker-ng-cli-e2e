@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Prepare
+      - name: Prepare 
         id: prep
         run: |
           DOCKER_IMAGE=trion/ng-cli-e2e
@@ -72,9 +72,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          #karma image is just amd64 b/c google chrome
           #platforms: linux/amd64,linux/arm64,linux/arm/v7
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
           cache-from: type=local,src=/tmp/.buildx-cache
