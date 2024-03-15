@@ -1,6 +1,6 @@
 FROM trion/ng-cli-karma:latest
 
-LABEL ng-cli-karma='17.2.3'
+LABEL ng-cli-karma='17.3.0'
 
 ARG USER_ID=1000
 USER root
