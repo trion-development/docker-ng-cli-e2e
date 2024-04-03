@@ -1,4 +1,4 @@
-FROM trion/ng-cli-karma:latest
+FROM trion/ng-cli-karma:17.3.3
 
 LABEL ng-cli-karma='17.3.2'
 
