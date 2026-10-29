@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		xz-utils \
 		apt-transport-https \
 		ffmpeg \
-		openjdk-17-jre \
+		openjdk-21-jre-headless \
 		ca-certificates p11-kit \
 	&& rm -rf /var/lib/apt/lists/*
 
